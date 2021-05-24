@@ -1,0 +1,127 @@
+
+(dineshProject) D:\dineshProject\blogApp>python manage.py shell
+Python 3.8.2 (tags/v3.8.2:7b3ab59, Feb 25 2020, 22:45:29) [MSC v.1916 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from blog.models import Post
+>>> from django.contrib.auth.models import User
+>>> Post.objects.all()
+<QuerySet []>
+>>> User.objects.all()
+<QuerySet [<User: rahul>, <User: dineshuser>]>
+>>> User.objects.first()
+<User: rahul>
+>>> User.objects.last()
+<User: dineshuser>
+>>> User.objects.filter(username='rahul')
+<QuerySet [<User: rahul>]>
+>>> User.objects.filter(username='dinesh')
+<QuerySet []>
+>>> User.objects.filter(username='dineshuser')
+<QuerySet [<User: dineshuser>]>
+>>> User.objects.filter(username='rahul').first()
+<User: rahul>
+>>> user=User.objects.filter(username='rahul').first()
+>>> user
+<User: rahul>
+>>> user.id
+1
+>>> user.pk
+1
+>>> user=User.objects.get(id=1)
+>>> user
+<User: rahul>
+>>> Post.objects.all()
+<QuerySet []>
+>>> post1=Post(title='First Post',content='First Blog Post Content',author=user)
+>>> Post.objects.all()
+<QuerySet []>
+>>> post1.save()
+>>> Post.objects.all()
+<QuerySet [<Post: Post object (1)>]>
+>>> post1=Post(title='Second Post',content='Second Blog Post Content',author.id=user.id)
+  File "<console>", line 1
+SyntaxError: expression cannot contain assignment, perhaps you meant "=="?
+>>> post1=Post(title='Second Post',content='Second Blog Post Content',author.id==user.id)
+  File "<console>", line 1
+SyntaxError: positional argument follows keyword argument
+>>> post2=Post(title='Second Post',content='Second Blog Post Content',author=user)
+>>> Post.objects.all()
+<QuerySet [<Post: Post object (1)>]>
+>>> post2.save()
+>>> Post.objects.all()
+<QuerySet [<Post: Post object (1)>, <Post: Post object (2)>]>
+>>> exit()
+
+(dineshProject) D:\dineshProject\blogApp>python manage.py makemigrations
+No changes detected
+
+(dineshProject) D:\dineshProject\blogApp>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, blog, contenttypes, sessions
+Running migrations:
+  No migrations to apply.
+
+(dineshProject) D:\dineshProject\blogApp>python manage.py shell
+Python 3.8.2 (tags/v3.8.2:7b3ab59, Feb 25 2020, 22:45:29) [MSC v.1916 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> Post.objects.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'Post' is not defined
+>>> cls
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'cls' is not defined
+>>> from blog.models import Post
+>>> from django.contrib.auth.models import User
+>>> Post.objects.all()
+<QuerySet [<Post: First Post>, <Post: Second Post>]>
+>>> exit()
+
+(dineshProject) D:\dineshProject\blogApp>python manage.py runserver
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 19, 2020 - 11:11:11
+Django version 3.1.1, using settings 'blogApp.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+[19/Sep/2020 11:11:17] "GET /admin/ HTTP/1.1" 200 3621
+[19/Sep/2020 11:11:21] "GET /admin/ HTTP/1.1" 200 3621
+[19/Sep/2020 11:11:24] "GET / HTTP/1.1" 200 3549
+[19/Sep/2020 11:11:24] "GET /static/blogtemp/main.css HTTP/1.1" 304 0
+[19/Sep/2020 11:11:27] "GET /admin/ HTTP/1.1" 200 3621
+[19/Sep/2020 11:11:31] "GET /admin/auth/user/ HTTP/1.1" 200 8153
+[19/Sep/2020 11:11:31] "GET /admin/jsi18n/ HTTP/1.1" 200 3187
+
+(dineshProject) D:\dineshProject\blogApp>python manage.py shell
+Python 3.8.2 (tags/v3.8.2:7b3ab59, Feb 25 2020, 22:45:29) [MSC v.1916 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from blog.models import Post
+>>> Post.objects.all()
+<QuerySet [<Post: First Post>, <Post: Second Post>]>
+>>> exit()
+
+(dineshProject) D:\dineshProject\blogApp>python manage.py runserver
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 19, 2020 - 11:13:02
+Django version 3.1.1, using settings 'blogApp.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+[19/Sep/2020 11:13:08] "GET / HTTP/1.1" 200 3549
+[19/Sep/2020 11:13:09] "GET / HTTP/1.1" 200 3549
+[19/Sep/2020 11:13:10] "GET /about/ HTTP/1.1" 200 2866
+[19/Sep/2020 11:13:10] "GET / HTTP/1.1" 200 3549
+[19/Sep/2020 11:13:11] "GET / HTTP/1.1" 200 3549
+[19/Sep/2020 11:13:15] "GET /admin/ HTTP/1.1" 200 3621
+[19/Sep/2020 11:13:16] "GET /admin/ HTTP/1.1" 200 3621
+[19/Sep/2020 11:13:29] "GET /admin/auth/user/ HTTP/1.1" 200 8153
+[19/Sep/2020 11:13:30] "GET /admin/jsi18n/ HTTP/1.1" 200 3187
+[19/Sep/2020 11:13:34] "GET /admin/ HTTP/1.1" 200 3621

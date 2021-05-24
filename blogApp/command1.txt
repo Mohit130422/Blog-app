@@ -1,0 +1,42 @@
+
+(dineshProject) D:\dineshProject\blogApp>python manage.py shell
+Python 3.8.2 (tags/v3.8.2:7b3ab59, Feb 25 2020, 22:45:29) [MSC v.1916 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from blog.models import Post
+>>> from django.contrib.auth.models import User
+>>> Post.objects.all()
+<QuerySet [<Post: First Post>, <Post: Second Post>]>
+>>> user=User.objects.first()
+>>> user
+<User: rahul>
+>>> user.post_set()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+TypeError: __call__() missing 1 required keyword-only argument: 'manager'
+>>> user.post_set
+<django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager object at 0x045A86A0>
+>>> user.post_set.all()
+<QuerySet [<Post: First Post>, <Post: Second Post>]>
+>>> post=Post.objects.first()
+>>> post
+<Post: First Post>
+>>> post.title
+'First Post'
+>>> post.content
+'First Blog Post Content'
+>>> post.author
+<User: rahul>
+>>> post.email
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'Post' object has no attribute 'email'
+>>> user.post.set.create(title="Third Post",content="Third post content ")
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'User' object has no attribute 'post'
+>>> user.post_set.create(title="Third Post",content="Third post content ")
+<Post: Third Post>
+>>> Post.objects.all()
+<QuerySet [<Post: First Post>, <Post: Second Post>, <Post: Third Post>]>
+>>>
